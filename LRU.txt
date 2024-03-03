@@ -1,0 +1,47 @@
+LRU Page Replacement 
+
+#include <stdio.h> 
+#define MAX_FRAMES 10 
+int main() { 
+    int frames[MAX_FRAMES], pages[MAX_FRAMES], temp[MAX_FRAMES]; 
+    int numOfFrames, numOfPages, pageFaults = 0; 
+    printf("Enter number of frames: "); 
+    scanf("%d", &numOfFrames); 
+    printf("Enter number of pages: "); 
+    scanf("%d", &numOfPages); 
+    printf("Enter the reference string: "); 
+    for (int i = 0; i < numOfPages; i++) 
+        scanf("%d", &pages[i]); 
+    for (int i = 0; i < numOfFrames; i++) 
+        frames[i] = -1; 
+    int counter = 0; 
+    for (int i = 0; i < numOfPages; i++) { 
+        int page = pages[i]; 
+        int found = 0; 
+        for (int j = 0; j < numOfFrames; j++) { 
+            if (frames[j] == page) { 
+                found = 1; 
+                break; 
+            } 
+        } 
+        if (!found) { 
+            if (counter < numOfFrames) { 
+                frames[counter++] = page; 
+            } else { 
+                int minIndex = 0; 
+                for (int j = 1; j < numOfFrames; j++) { 
+                    if (temp[j] < temp[minIndex]) 
+                        minIndex = j; 
+                } 
+                frames[minIndex] = page; 
+            } 
+            pageFaults++; 
+        } 
+        for (int j = 0; j < numOfFrames; j++) { 
+            if (frames[j] != -1) 
+                temp[j]++; 
+        } 
+    } 
+    printf("Total page faults: %d\n", pageFaults); 
+    return 0; 
+} 

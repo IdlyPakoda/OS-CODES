@@ -1,0 +1,76 @@
+/* 
+Implement Producer &Consumer problem using semaphore. 
+Producer consumer problem is also known as bounded buffer problem. In this problem we have two processes,4 
+producer and consumer, who share a fixed size buffer. Producer work is to produce data or items and put  
+in buffer. Consumer work is to remove data from buffer and consume it. We have to make sure that producer  
+do not produce data when buffer is full and consumer do not remove data when buffer is empty. 
+To solve this problem, we need two counting semaphores – Full and Empty. “Full” keeps track of number of  
+items in the buffer at any given time and “Empty” keeps track of number of unoccupied slots. 
+Initialization of semaphores – 
+mutex = 1 
+Full = 0 // Initially, all slots are empty. Thus full slots are 0  
+Empty = 3 // All slots are empty initially  and Maximum Size of the buffer is 3. 
+Give 3 choice to user 
+1. producer 
+2. consumer 
+3. exit 
+Smaple Input and output: 
+1.Producer 
+2.Consumer 
+3.Exit 
+Enter your choice:1 
+Producer produces the item 1 
+Enter your choice:1 
+Producer produces the item 2 
+Enter your choice:1 
+Producer produces the item 3 
+Enter your choice:1 
+Buffer is full!! 
+Enter your choice:2 
+Consumer consumes item 3 
+Enter your choice:2 
+Consumer consumes item 2 
+Enter your choice:2 
+
+Consumer consumes item 1 
+Enter your choice:2 
+Buffer is empty!! 
+Enter your choice:3 
+*/ 
+
+#include <stdio.h> 
+int main() { 
+        printf("1.Producer\n"); 
+        printf("2.Consumer\n"); 
+        printf("3.Exit\n"); 
+        int size = 3; 
+        int a = 0; 
+    while (1) { 
+        int ch; 
+        printf("Enter your choice:"); 
+        scanf("%d", &ch); 
+        switch (ch) { 
+            case 1: 
+                a++; 
+                if (a <= size) { 
+                    printf("\nProducer produces the item %d\n", a); 
+                } else { 
+                    printf("Buffer is full!!\n"); 
+                } 
+                break; 
+            case 2: 
+                a--; 
+                if (a > 0) { 
+                    printf("\nConsumer consumes item %d\n", a); 
+                } else { 
+                    printf("Buffer is empty!!\n"); 
+                } 
+                break; 
+            case 3: 
+                return 0; 
+            default: 
+                printf("Invalid choice. Please enter 1, 2, or 3.\n"); 
+        } 
+    } 
+    return 0; 
+} 

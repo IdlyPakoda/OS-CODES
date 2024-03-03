@@ -1,0 +1,37 @@
+FIFO Page Replacement 
+
+#include <stdio.h> 
+#define MAX_FRAMES 10 
+int main() { 
+    int frames[MAX_FRAMES], pages[MAX_FRAMES]; 
+    int numOfFrames, numOfPages, pageFaults = 0; 
+    printf("Enter the number of frames: "); 
+    scanf("%d", &numOfFrames); 
+    printf("Enter the number of pages: "); 
+    scanf("%d", &numOfPages); 
+    printf("Enter the reference string: "); 
+    for (int i = 0; i < numOfPages; i++) 
+        scanf("%d", &pages[i]); 
+    for (int i = 0; i < numOfFrames; i++) 
+        frames[i] = -1; // Initialize frames to -1 (indicating empty) 
+    int currentIndex = 0; // Current index in the frames array 
+    for (int i = 0; i < numOfPages; i++) { 
+        int page = pages[i]; 
+        int found = 0; 
+        // Check if page is already in frames 
+        for (int j = 0; j < numOfFrames; j++) { 
+            if (frames[j] == page) { 
+                found = 1; 
+                break; 
+            } 
+        } 
+        // If page is not found, replace the oldest page 
+        if (!found) { 
+            frames[currentIndex] = page; 
+            currentIndex = (currentIndex + 1) % numOfFrames; // Update index circularly 
+            pageFaults++; 
+        } 
+    } 
+    printf("Total page faults: %d\n", pageFaults); 
+    return 0; 
+}

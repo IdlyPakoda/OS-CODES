@@ -1,0 +1,59 @@
+/*         Implement reader writer problem 
+The Problem Statement 
+There is a shared resource which should be accessed by multiple processes.  
+There are two types of processes in this context. They are reader and writer.  
+Any number of readers can read from the shared resource simultaneously, but only  
+one writer can write to the shared resource. When a writer is writing data to the  
+resource, no other process can access the resource. A writer cannot write to the  
+resource if there are non zero number of readers accessing the resource at that time.  
+*/ 
+SAMPLE INPUT AND OUTPUT: 
+1. Press 1 for writer                                                                                                    
+2. Press 2 for reader                                                                                                    
+3. Press 3 for exit                                                                                                      
+Enter your choice:1                                                                                                                                                                                                      
+The writer content number:1                                                                                             
+Enter your choice:1                                                                                                                                                                                                                     
+The writer content number:2                                                                                             
+Enter your choice:1                                                                                                                                                                                                     
+The writer content number:3                                                                                             
+Enter your choice:2                                                                                                                                                                                                       
+The reader content number:3                                                                                             
+Enter your choice:2                                                                                                                                                                                                            
+The reader content number:2                                                                                             
+Enter your choice:3 
+*/ 
+/* WRITE YOUR PROGRAM FROM HERE*/ 
+
+#include <stdio.h> 
+int main() { 
+        printf("1. Press 1 for writer\n"); 
+        printf("2. Press 2 for reader\n"); 
+        printf("3. Press 3 for exit\n"); 
+        int size = 3; 
+        int a = 0; 
+    while (1) { 
+        int ch; 
+        printf("Enter your choice:"); 
+        scanf("%d", &ch); 
+        switch (ch) { 
+            case 1: 
+                a++; 
+                if (a <= size) { 
+                    printf("\nThe writer content number:%d\n", a); 
+                } 
+                break; 
+            case 2: 
+                if (a > 0) { 
+                    printf("\nThe reader content number:%d\n", a); 
+                } 
+                a--; 
+                break; 
+            case 3: 
+                return 0; 
+            default: 
+                printf("Invalid choice. Please enter 1, 2, or 3.\n"); 
+        } 
+    } 
+    return 0; 
+} 

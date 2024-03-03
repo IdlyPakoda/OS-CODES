@@ -1,0 +1,57 @@
+Optimal Page Replacement 
+
+#include <stdio.h> 
+#define MAX_FRAMES 10 
+#define MAX_PAGES 100 
+int main() { 
+    int frames[MAX_FRAMES], pages[MAX_PAGES]; 
+    int numOfFrames, numOfPages, pageFaults = 0; 
+
+    printf("Enter the number of frames: "); 
+    scanf("%d", &numOfFrames); 
+
+    printf("Enter the number of pages: "); 
+    scanf("%d", &numOfPages); 
+
+    printf("Enter the reference string: "); 
+    for (int i = 0; i < numOfPages; i++) 
+        scanf("%d", &pages[i]); 
+
+    for (int i = 0; i < numOfFrames; i++) 
+        frames[i] = -1; // Initialize frames to -1 (indicating empty) 
+
+    for (int i = 0; i < numOfPages; i++) { 
+        int page = pages[i]; 
+        int found = 0; 
+        for (int j = 0; j < numOfFrames; j++) { 
+            if (frames[j] == page) { 
+                found = 1; 
+                break; 
+            } 
+        } 
+        if (!found) { 
+            int farthest = i + 1; 
+            int replaceIndex = -1; 
+            for (int j = 0; j < numOfFrames; j++) { 
+                int k; 
+                for (k = i + 1; k < numOfPages; k++) { 
+                    if (frames[j] == pages[k]) { 
+                        if (k > farthest) { 
+                            farthest = k; 
+                            replaceIndex = j; 
+                        } 
+                        break; 
+                    } 
+                } 
+                if (k == numOfPages) { 
+                    replaceIndex = j; 
+                    break; 
+                } 
+            } 
+            frames[replaceIndex] = page; 
+            pageFaults++; 
+        } 
+    } 
+    printf("Total page faults: %d\n", pageFaults); 
+    return 0; 
+} 
